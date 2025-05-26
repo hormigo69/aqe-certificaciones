@@ -1,1 +1,15 @@
 *.log
+
+# No subo directorios y archivos de OSx
+.DS_Store
+
+# carpeta data
+data/
+
+#entorno virtual
+.venv
+
+#Otros archivos varios
+.env
+
+resultados_validacion.csv

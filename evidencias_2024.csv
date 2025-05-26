@@ -1,0 +1,74 @@
+ID_Empleado,Nombre_Empleado,ID_Subproyecto,Nombre_Subproyecto,ID_Proyecto,Nombre_Proyecto,Evidencia,Ruta_Evidencia
+103,Joel Urraco,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Joel Urraco_Menu Planner [JIRA].png,data/Evidencias 2024/Joel Urraco_Menu Planner [JIRA].png
+103,Joel Urraco,GE2302,Group-e MVP,2,Plataforma Ocio y formación,Joel Urraco_Group-e [Commit].png,data/Evidencias 2024/Joel Urraco_Group-e [Commit].png
+103,Joel Urraco,MM2302,Centauro- Scrapping & Consultoría Data,3,Plataforma de procesos de venta y logística,Joel Urraco_Centauro [Commit].png,data/Evidencias 2024/Joel Urraco_Centauro [Commit].png
+124,Alberto Blasco,CMP2203,Cookbook,1,Plataforma Gestión interna empresas,Alberto Blasco_Cookbook [JIRA].png,data/Evidencias 2024/Alberto Blasco_Cookbook [JIRA].png
+124,Alberto Blasco,MM2301,Voltio Pricing Dinámico,2,Plataforma Ocio y formación,Alberto Blasco_Voltio [JIRA].png,data/Evidencias 2024/Alberto Blasco_Voltio [JIRA].png
+124,Alberto Blasco,EMP2202,Telpark,3,Plataforma de procesos de venta y logística,Alberto Blasco_Telpark [Commit].png,data/Evidencias 2024/Alberto Blasco_Telpark [Commit].png
+129,Gabriel Barbarin,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Gabriel Barbarin_Menu Planner [JIRA].png,data/Evidencias 2024/Gabriel Barbarin_Menu Planner [JIRA].png
+129,Gabriel Barbarin,PAN2301,Pangea - Desarrollo de producto,2,Plataforma Ocio y formación,Gabriel Barbarin_Pangea [Commit].png,data/Evidencias 2024/Gabriel Barbarin_Pangea [Commit].png
+131,Luis Portillo,PAN2301,Pangea - Desarrollo de producto,2,Plataforma Ocio y formación,Luis Portillo_Pangea [Commit].png,data/Evidencias 2024/Luis Portillo_Pangea [Commit].png
+131,Luis Portillo,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,Luis Portillo_Naturgy FI [Commit].png,data/Evidencias 2024/Luis Portillo_Naturgy FI [Commit].png
+132,Gerard Ruiz,PAN2301,Pangea - Desarrollo de producto,2,Plataforma Ocio y formación,Gerard Ruiz_Pangea [JIRA].png,data/Evidencias 2024/Gerard Ruiz_Pangea [JIRA].png
+132,Gerard Ruiz,NAT2301,Naturgy- Arquitectura,3,Plataforma de procesos de venta y logística,Gerard Ruiz_Naturgy Arquitectura [Confluence].png,data/Evidencias 2024/Gerard Ruiz_Naturgy Arquitectura [Confluence].png
+134,Ana López,MM2301,Voltio Pricing Dinámico,2,Plataforma Ocio y formación,Ana Lopez_Voltio [JIRA].png,data/Evidencias 2024/Ana Lopez_Voltio [JIRA].png
+134,Ana López,EMP2202,Telpark,3,Plataforma de procesos de venta y logística,Ana Lopez_Telpark [Commit].png,data/Evidencias 2024/Ana Lopez_Telpark [Commit].png
+135,Héctor Escolante,CAR2302,VotConnect - SaaS,1,Plataforma Gestión interna empresas,Hector Escolante_VotConnect [JIRA].png,data/Evidencias 2024/Hector Escolante_VotConnect [JIRA].png
+135,Héctor Escolante,SEL2301,Selectra,2,Plataforma Ocio y formación,Hector Escolante_Selectra [Commit].png,data/Evidencias 2024/Hector Escolante_Selectra [Commit].png
+135,Héctor Escolante,ILA2402,POC Oakmond,3,Plataforma de procesos de venta y logística,Hector Escolante_Oakmond [Commit].png,data/Evidencias 2024/Hector Escolante_Oakmond [Commit].png
+135,Héctor Escolante,NAT2401,Naturgy - Monitor de Procesos,3,Plataforma de procesos de venta y logística,Hector Escolante_Naturgy [Commit].png,data/Evidencias 2024/Hector Escolante_Naturgy [Commit].png
+136,Francisco Fernández,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Francisco Fernandez_Menu Planner [JIRA].png,data/Evidencias 2024/Francisco Fernandez_Menu Planner [JIRA].png
+136,Francisco Fernández,GE2302,Group-e MVP,2,Plataforma Ocio y formación,Francisco Fernandez_Group-e [Commit].png,data/Evidencias 2024/Francisco Fernandez_Group-e [Commit].png
+137,Saúl Bustos,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,Saul Bustos_Naturgy Bateria Virtual [Confluence].png,data/Evidencias 2024/Saul Bustos_Naturgy Bateria Virtual [Confluence].png
+141,Naile Vasquez,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Naile Vasquez_Menu Planner [JIRA].png,data/Evidencias 2024/Naile Vasquez_Menu Planner [JIRA].png
+141,Naile Vasquez,MA2401,Pastelería Mallorca - Consultoría Growth,2,Plataforma Ocio y formación,Naile Vasquez_Mallorca [Figma].jpg,data/Evidencias 2024/Naile Vasquez_Mallorca [Figma].jpg
+141,Naile Vasquez,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,Naile Vasquez_Naturgy [Figma].jpg,data/Evidencias 2024/Naile Vasquez_Naturgy [Figma].jpg
+149,Pablo Perales Molas,HOS2301,Hospiten- Nueva web Hubspot Enterprise,1,Plataforma Gestión interna empresas,Pablo Perales_Hospiten [Commit].png,data/Evidencias 2024/Pablo Perales_Hospiten [Commit].png
+149,Pablo Perales Molas,EMP2202,Telpark,3,Plataforma de procesos de venta y logística,Pablo Perales_Hospiten [Commit].png,data/Evidencias 2024/Pablo Perales_Hospiten [Commit].png
+150,Alejandro Gallardo,PAN2301,Pangea - Desarrollo de producto,2,Plataforma Ocio y formación,Alejandro Gallardo_Pangea [Commit].png,data/Evidencias 2024/Alejandro Gallardo_Pangea [Commit].png
+150,Alejandro Gallardo,EMP2202,Telpark,3,Plataforma de procesos de venta y logística,Alejandro Gallardo_Telpark [Commit].pdf,data/Evidencias 2024/Alejandro Gallardo_Telpark [Commit].pdf
+155,Rocío Pombo,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Rocio Pombo_Menu Planner [JIRA].png,data/Evidencias 2024/Rocio Pombo_Menu Planner [JIRA].png
+155,Rocío Pombo,NN2306,NN QA React Native,2,Plataforma Ocio y formación,Rocio Pombo_NN [Slack].png,data/Evidencias 2024/Rocio Pombo_NN [Slack].png
+155,Rocío Pombo,EMP2202,Telpark,3,Plataforma de procesos de venta y logística,Rocio Pombo_Telpark [JIRA].png,data/Evidencias 2024/Rocio Pombo_Telpark [JIRA].png
+163,Adrián Navas,MM2301,Voltio Pricing Dinámico,2,Plataforma Ocio y formación,Adrian Navas_Voltio [Commit].png,data/Evidencias 2024/Adrian Navas_Voltio [Commit].png
+163,Adrián Navas,MM2302,Centauro- Scrapping & Consultoría Data,3,Plataforma de procesos de venta y logística,Adrian Navas_Centauroi [Correos].png,data/Evidencias 2024/Adrian Navas_Centauroi [Correos].png
+167,Kevin Martins,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Kevin Martins_Menu Planner [JIRA].png,data/Evidencias 2024/Kevin Martins_Menu Planner [JIRA].png
+167,Kevin Martins,PAN2301,Pangea - Desarrollo de producto,2,Plataforma Ocio y formación,Kevin Martins_Pangea [JIRA].png,data/Evidencias 2024/Kevin Martins_Pangea [JIRA].png
+167,Kevin Martins,GLO2401,Openvía Geomic 2.0,3,Plataforma de procesos de venta y logística,Kevin Martins_Openvia [JIRA].png,data/Evidencias 2024/Kevin Martins_Openvia [JIRA].png
+170,Adriana Cordero,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,Adriana Cordero_Naturgy [JIRA].png,data/Evidencias 2024/Adriana Cordero_Naturgy [JIRA].png
+171,Carlos de Armas,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,Carlos de Armas_Naturgy [Commit].png,data/Evidencias 2024/Carlos de Armas_Naturgy [Commit].png
+173,Moisés Ibarra,PAN2403,Pangea - Presupuesto digital,2,Plataforma Ocio y formación,Moises Ibarra_Pangea [Commit].png,data/Evidencias 2024/Moises Ibarra_Pangea [Commit].png
+173,Moisés Ibarra,EMP2202,Telpark,3,Plataforma de procesos de venta y logística,Moises Ibarra_Telpark [Commit].png,data/Evidencias 2024/Moises Ibarra_Telpark [Commit].png
+175,Jesús Molano,PAN2301,Pangea - Desarrollo de producto,2,Plataforma Ocio y formación,Jesus Molano_Pangea [Commit].png,data/Evidencias 2024/Jesus Molano_Pangea [Commit].png
+175,Jesús Molano,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,Jesus Molano_Naturgy [Commit].png,data/Evidencias 2024/Jesus Molano_Naturgy [Commit].png
+176,Oriol Miro,EMP2202,Telpark,3,Plataforma de procesos de venta y logística,Oriol Miro_Telpark [Commit].png,data/Evidencias 2024/Oriol Miro_Telpark [Commit].png
+176,Oriol Miro,MM2302,Centauro- Scrapping & Consultoría Data,3,Plataforma de procesos de venta y logística,Oriol Miró_Centauro [Commit].png,data/Evidencias 2024/Oriol Miró_Centauro [Commit].png
+177,Francisco Guerrero,NAT2301,Naturgy- Arquitectura,3,Plataforma de procesos de venta y logística,Fran Guerrero_Naturgy Arquitectura [Confluence].png,data/Evidencias 2024/Fran Guerrero_Naturgy Arquitectura [Confluence].png
+180,David Montoro,NAT2301,Naturgy- Arquitectura,3,Plataforma de procesos de venta y logística,David Montoro_Naturgy Arquitectura [Confluence].png,data/Evidencias 2024/David Montoro_Naturgy Arquitectura [Confluence].png
+181,Ricardo Alesina,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Ricardo Alesina_Menu Planner [JIRA].png,data/Evidencias 2024/Ricardo Alesina_Menu Planner [JIRA].png
+182,Daniel Hidalgo,GLO2401,Openvía Geomic 2.0,3,Plataforma de procesos de venta y logística,Daniel Hidalgo_Geomic [Jira].png,data/Evidencias 2024/Daniel Hidalgo_Geomic [Jira].png
+26,Javier Carrillo,NAT2401,Naturgy - Monitor de Procesos,3,Plataforma de procesos de venta y logística,Javier Carrillo_Naturgy [Commit].png,data/Evidencias 2024/Javier Carrillo_Naturgy [Commit].png
+28,Luis Fuertes,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Luis Fuertes_Menu Planner [JIRA].png,data/Evidencias 2024/Luis Fuertes_Menu Planner [JIRA].png
+28,Luis Fuertes,GE2302,Group-e MVP,2,Plataforma Ocio y formación,Luis Fuertes_Group-e [Commit].png,data/Evidencias 2024/Luis Fuertes_Group-e [Commit].png
+39,Gema Arias,HOS2301,Hospiten- Nueva web Hubspot Enterprise,1,Plataforma Gestión interna empresas,Gema Arias_Hospiten [Figma].png,data/Evidencias 2024/Gema Arias_Hospiten [Figma].png
+39,Gema Arias,PAN2301,Pangea - Desarrollo de producto,2,Plataforma Ocio y formación,Gema Arias_Pangea [Figma].png,data/Evidencias 2024/Gema Arias_Pangea [Figma].png
+39,Gema Arias,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,Gema Arias_Naturgy [Figma].png,data/Evidencias 2024/Gema Arias_Naturgy [Figma].png
+42,Roberto León,HOS2301,Hospiten- Nueva web Hubspot Enterprise,1,Plataforma Gestión interna empresas,Roberto Leon_Hospiten [Commit].png,data/Evidencias 2024/Roberto Leon_Hospiten [Commit].png
+42,Roberto León,MAN2401,Manosanta - Screens,2,Plataforma Ocio y formación,Roberto Leon_Manosanta [Commit].png,data/Evidencias 2024/Roberto Leon_Manosanta [Commit].png
+42,Roberto León,EMP2202,Telpark,3,Plataforma de procesos de venta y logística,Roberto Leon_Telpark [Commit].png,data/Evidencias 2024/Roberto Leon_Telpark [Commit].png
+46,Santiago Jiménez,CMP2302,Menu Planner,1,Plataforma Gestión interna empresas,Santiago Jimenez_Menu Planner [JIRA].png,data/Evidencias 2024/Santiago Jimenez_Menu Planner [JIRA].png
+46,Santiago Jiménez,SEL2301,Selectra,2,Plataforma Ocio y formación,Santiago Jimenez_Selectra [JIRA].png,data/Evidencias 2024/Santiago Jimenez_Selectra [JIRA].png
+46,Santiago Jiménez,ASI2401,Asitur - PWA Asistencia en Carretera,3,Plataforma de procesos de venta y logística,Santiago Jimenez_Asitur [JIRA].png,data/Evidencias 2024/Santiago Jimenez_Asitur [JIRA].png
+52,David Esteban,CAR2302,VotConnect - SaaS,1,Plataforma Gestión interna empresas,David Esteban_VotConnect [JIRA].png,data/Evidencias 2024/David Esteban_VotConnect [JIRA].png
+52,David Esteban,CUR2304,OFL - Keep it running,2,Plataforma Ocio y formación,David Esteban_OFL [Commit].png,data/Evidencias 2024/David Esteban_OFL [Commit].png
+52,David Esteban,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,David Esteban_VotConnect [JIRA].png,data/Evidencias 2024/David Esteban_VotConnect [JIRA].png
+7,Aritz Alvarez,HOS2301,Hospiten- Nueva web Hubspot Enterprise,1,Plataforma Gestión interna empresas,Aritz Alvarez_Oakmond Landing [Hubspot].png,data/Evidencias 2024/Aritz Alvarez_Oakmond Landing [Hubspot].png
+7,Aritz Alvarez,PAN2301,Pangea - Desarrollo de producto,2,Plataforma Ocio y formación,Aritz Alvarez_Pangea [Commit].png,data/Evidencias 2024/Aritz Alvarez_Pangea [Commit].png
+7,Aritz Alvarez,SEL2301,Selectra,2,Plataforma Ocio y formación,Aritz Alavarez_Selectra [Commit].png,data/Evidencias 2024/Aritz Alavarez_Selectra [Commit].png
+7,Aritz Alvarez,ILA2401,Desarrollo Landing Page,3,Plataforma de procesos de venta y logística,Aritz Alvarez_Oakmond Landing [Hubspot].png,data/Evidencias 2024/Aritz Alvarez_Oakmond Landing [Hubspot].png
+7,Aritz Alvarez,ILA2402,POC Oakmond,3,Plataforma de procesos de venta y logística,Aritz Alvarez_POC Oakmond [Commit].png,data/Evidencias 2024/Aritz Alvarez_POC Oakmond [Commit].png
+74,Victor López,DKV2401,DKV Web Hubspot,2,Plataforma Ocio y formación,Victor Lopez_DKV Web [Commit].png,data/Evidencias 2024/Victor Lopez_DKV Web [Commit].png
+74,Victor López,ILA2402,POC Oakmond,3,Plataforma de procesos de venta y logística,Victor Lopez_POC Oakmond [Commit].png,data/Evidencias 2024/Victor Lopez_POC Oakmond [Commit].png
+97,Ivan Aviles,HOS2301,Hospiten- Nueva web Hubspot Enterprise,1,Plataforma Gestión interna empresas,Ivan Aviles_Hospiten [JIRA].png,data/Evidencias 2024/Ivan Aviles_Hospiten [JIRA].png
+97,Ivan Aviles,GE2302,Group-e MVP,2,Plataforma Ocio y formación,Ivan Aviles_Groupe [JIRA].png,data/Evidencias 2024/Ivan Aviles_Groupe [JIRA].png
+97,Ivan Aviles,NAT2304,"Naturgy - FI, Batería, Omega, Trastienda",3,Plataforma de procesos de venta y logística,Ivan Aviles_Naturgy Omega [Confluence].png,data/Evidencias 2024/Ivan Aviles_Naturgy Omega [Confluence].png
