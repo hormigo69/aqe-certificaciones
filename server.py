@@ -1,7 +1,8 @@
-from flask import Flask, Response, send_from_directory
+from flask import Flask, Response, send_from_directory, request, jsonify
 from flask_cors import CORS
 import os
 import logging
+from datetime import datetime
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -60,6 +61,53 @@ def serve_csv():
         logger.error(f"Error al servir el archivo: {str(e)}")
         return str(e), 500
 
+@app.route('/save-results', methods=['POST', 'OPTIONS'])
+def save_results():
+    if request.method == 'OPTIONS':
+        # Respuesta preflight para CORS
+        response = jsonify({'message': 'OK'})
+        response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
+        response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
+        return response
+    
+    try:
+        # Obtener los datos del CSV del frontend
+        data = request.get_json()
+        csv_data = data.get('csvData')
+        
+        if not csv_data:
+            return jsonify({'error': 'No se recibieron datos CSV'}), 400
+        
+        # Crear nombre de archivo con timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'resultados_validacion_modificado_{timestamp}.csv'
+        
+        # Guardar el archivo
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(csv_data)
+        
+        # También actualizar el archivo original para mantener los cambios
+        with open('resultados_validacion.csv', 'w', encoding='utf-8') as f:
+            f.write(csv_data)
+        
+        logger.info(f"Datos guardados en: {filename}")
+        logger.info("Archivo original actualizado")
+        
+        response = jsonify({
+            'message': 'Datos guardados correctamente',
+            'filename': filename,
+            'timestamp': timestamp
+        })
+        response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
+        return response
+        
+    except Exception as e:
+        logger.error(f"Error al guardar los datos: {str(e)}")
+        response = jsonify({'error': f'Error interno del servidor: {str(e)}'})
+        response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
+        return response, 500
+
 @app.route('/evidencias/<path:filename>')
 def evidencias(filename):
     return send_from_directory('data/Evidencias 2024', filename)
@@ -68,7 +116,7 @@ def evidencias(filename):
 def after_request(response):
     response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
     response.headers['Access-Control-Expose-Headers'] = 'Content-Type, Content-Length'
     return response
 

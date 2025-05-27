@@ -2,12 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #f6f7fb;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-} 
+::-webkit-scrollbar {
+  width: 8px;
+  background: #f3f4f6;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 8px;
+}
+
+.sidebar-gradient {
+  background: linear-gradient(180deg, #ede9fe 0%, #f3f4f6 100%);
+}
+
+.card-shadow {
+  box-shadow: 0 4px 24px 0 rgba(80, 80, 180, 0.08);
+}
+
