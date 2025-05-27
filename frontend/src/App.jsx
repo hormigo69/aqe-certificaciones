@@ -6,19 +6,53 @@ function App() {
   const [data, setData] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('/resultados_validacion.csv')
-      .then(response => response.text())
-      .then(csv => {
+    const fetchData = async () => {
+      try {
+        console.log('Iniciando fetch de datos...')
+        const response = await fetch('http://localhost:5001/resultados_validacion.csv', {
+          method: 'GET',
+          headers: {
+            'Accept': 'text/csv',
+          },
+          mode: 'cors'
+        })
+        
+        console.log('Respuesta recibida:', response.status, response.statusText)
+        console.log('Headers:', Object.fromEntries(response.headers.entries()))
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const csv = await response.text()
+        console.log('CSV recibido (primeros 200 caracteres):', csv.substring(0, 200))
+        
         Papa.parse(csv, {
           header: true,
+          skipEmptyLines: true,
           complete: (results) => {
+            console.log('Datos parseados:', results.data.length, 'registros')
+            console.log('Primer registro:', results.data[0])
             setData(results.data)
+            setLoading(false)
+          },
+          error: (error) => {
+            console.error('Error al parsear CSV:', error)
+            setError('Error al procesar el archivo CSV: ' + error.message)
             setLoading(false)
           }
         })
-      })
+      } catch (error) {
+        console.error('Error completo:', error)
+        setError('Error al cargar los datos: ' + error.message)
+        setLoading(false)
+      }
+    }
+
+    fetchData()
   }, [])
 
   const handleCheckboxChange = (field) => {
@@ -27,10 +61,45 @@ function App() {
     setData(newData)
   }
 
+  // Función para construir la URL de la imagen
+  const getImageUrl = (ruta) => {
+    if (!ruta) return 'https://via.placeholder.com/400x300?text=Imagen+no+disponible';
+    const filename = ruta.split('/').pop();
+    return `http://localhost:5001/evidencias/${encodeURIComponent(filename)}`;
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-dark-primary text-dark-text flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-dark-accent"></div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-dark-primary text-dark-text flex items-center justify-center">
+        <div className="bg-dark-secondary p-8 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold text-red-500 mb-4">Error</h2>
+          <p className="text-lg">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-4 py-2 bg-dark-accent rounded hover:bg-blue-600"
+          >
+            Reintentar
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="min-h-screen bg-dark-primary text-dark-text flex items-center justify-center">
+        <div className="bg-dark-secondary p-8 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">No hay datos</h2>
+          <p className="text-lg">No se encontraron registros para mostrar.</p>
+        </div>
       </div>
     )
   }
@@ -132,9 +201,13 @@ function App() {
             <h2 className="text-xl font-semibold mb-4">Evidencia</h2>
             <div className="aspect-w-16 aspect-h-9">
               <img
-                src={currentItem.Link_imagen}
+                src={getImageUrl(currentItem.Link_imagen)}
                 alt="Evidencia"
                 className="object-contain w-full h-full rounded-lg"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://via.placeholder.com/400x300?text=Imagen+no+disponible';
+                }}
               />
             </div>
             <div className="mt-4">

@@ -13,3 +13,13 @@ data/
 .env
 
 resultados_validacion.csv
+
+#archivos no necesariso del frontend
+frontend/node_modules
+frontend/dist
+frontend/build
+frontend/public
+frontend/src/assets
+frontend/src/components
+frontend/src/pages
+frontend/src/utils
