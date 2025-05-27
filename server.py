@@ -2,7 +2,6 @@ from flask import Flask, Response, send_from_directory, request, jsonify
 from flask_cors import CORS
 import os
 import logging
-from datetime import datetime
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -29,13 +28,23 @@ def serve_csv():
         for file in os.listdir(current_dir):
             logger.info(f"- {file}")
         
-        # Intentar servir el archivo
-        csv_path = 'resultados_validacion.csv'
-        logger.info(f"Intentando servir el archivo: {csv_path}")
+        # Primero intentamos leer el archivo de resultados finales
+        csv_path = 'resultados_finales_validados.csv'
         
+        # Si no existe, intentamos copiar desde el archivo original
         if not os.path.exists(csv_path):
-            logger.error(f"El archivo no existe: {csv_path}")
-            return "Archivo no encontrado", 404
+            original_path = 'resultados_validacion.csv'
+            if os.path.exists(original_path):
+                logger.info(f"Copiando datos desde {original_path} a {csv_path}")
+                with open(original_path, 'r', encoding='utf-8') as f_orig:
+                    content = f_orig.read()
+                with open(csv_path, 'w', encoding='utf-8') as f_new:
+                    f_new.write(content)
+            else:
+                logger.error("No se encontró ningún archivo de resultados")
+                return "No se encontró ningún archivo de resultados. Por favor, ejecute primero el validador de evidencias.", 404
+        
+        logger.info(f"Intentando servir el archivo: {csv_path}")
         
         # Leer el contenido del archivo
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -79,25 +88,14 @@ def save_results():
         if not csv_data:
             return jsonify({'error': 'No se recibieron datos CSV'}), 400
         
-        # Crear nombre de archivo con timestamp
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        filename = f'resultados_validacion_modificado_{timestamp}.csv'
-        
-        # Guardar el archivo
-        with open(filename, 'w', encoding='utf-8') as f:
+        # Guardar en el archivo de resultados finales
+        with open('resultados_finales_validados.csv', 'w', encoding='utf-8') as f:
             f.write(csv_data)
         
-        # También actualizar el archivo original para mantener los cambios
-        with open('resultados_validacion.csv', 'w', encoding='utf-8') as f:
-            f.write(csv_data)
-        
-        logger.info(f"Datos guardados en: {filename}")
-        logger.info("Archivo original actualizado")
+        logger.info("Resultados finales guardados correctamente")
         
         response = jsonify({
-            'message': 'Datos guardados correctamente',
-            'filename': filename,
-            'timestamp': timestamp
+            'message': 'Datos guardados correctamente'
         })
         response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
         return response
