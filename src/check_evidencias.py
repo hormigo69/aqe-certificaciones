@@ -7,6 +7,8 @@ import logging
 from dotenv import load_dotenv
 import argparse
 import json
+import re
+import unicodedata
 
 # Cargar variables de entorno
 load_dotenv()
@@ -30,9 +32,13 @@ class EvidenciaValidator:
             raise ValueError("No se encontró la API key de Google en el archivo .env")
             
         genai.configure(api_key=api_key)
-        # Usamos gemini-pro-vision que es el modelo más avanzado para análisis de imágenes
-        self.model = genai.GenerativeModel('gemini-pro-vision')
-        logger.info("Validador de evidencias inicializado correctamente")
+        # Usamos gemini-1.5-flash que es el modelo más reciente y recomendado
+        try:
+            self.model = genai.GenerativeModel('gemini-1.5-flash')
+            logger.info("Modelo Gemini 1.5 Flash inicializado correctamente")
+        except Exception as e:
+            logger.error(f"Error al inicializar el modelo Gemini: {str(e)}")
+            raise
         
     def validar_evidencia(self, ruta_imagen: str, datos_empleado: Dict) -> Dict:
         """
@@ -47,19 +53,15 @@ class EvidenciaValidator:
         """
         try:
             logger.info(f"Procesando evidencia para {datos_empleado['Nombre_Empleado']} - {datos_empleado['Nombre_Subproyecto']}")
-            logger.debug(f"Ruta de imagen: {ruta_imagen}")
             
             # Cargar y procesar la imagen
             imagen = Image.open(ruta_imagen)
-            logger.debug(f"Imagen cargada: {imagen.size} - {imagen.mode}")
             
             # Preparar el prompt para Gemini
             prompt = self._generar_prompt(datos_empleado)
-            logger.debug(f"Prompt generado: {prompt}")
             
             # Obtener respuesta de Gemini
             respuesta = self._analizar_imagen(imagen, prompt)
-            logger.debug(f"Respuesta de Gemini: {respuesta}")
             
             # Procesar la respuesta
             resultado = self._procesar_respuesta(respuesta, datos_empleado)
@@ -81,7 +83,7 @@ class EvidenciaValidator:
         return f"""
         Analiza esta imagen y proporciona una respuesta estructurada en formato JSON con los siguientes campos:
 
-        1. nombre_encontrado: Verifica si aparece el nombre "{datos_empleado['Nombre_Empleado']}" en la imagen
+        1. nombre_encontrado: Extrae el nombre completo que aparece en la imagen. Si no se encuentra ningún nombre, devuelve "No se encontró nombre"
         2. fecha_encontrada: Extrae cualquier fecha visible en la imagen
         3. contenido_relevante: Describe el contenido de la imagen y su relación con el proyecto "{datos_empleado['Nombre_Subproyecto']}"
         4. tareas_identificadas: Lista las tareas o actividades que se pueden identificar en la imagen
@@ -93,10 +95,24 @@ class EvidenciaValidator:
     def _analizar_imagen(self, imagen: Image.Image, prompt: str) -> str:
         """Analiza la imagen usando Gemini."""
         try:
-            logger.debug("Enviando imagen a Gemini para análisis")
-            response = self.model.generate_content([prompt, imagen])
-            logger.debug("Respuesta recibida de Gemini")
-            return response.text
+            # Configurar parámetros de generación
+            generation_config = {
+                "temperature": 0.1,  # Más bajo para respuestas más precisas
+                "top_p": 0.8,
+                "top_k": 40,
+                "max_output_tokens": 2048,
+            }
+            
+            response = self.model.generate_content(
+                [prompt, imagen],
+                generation_config=generation_config
+            )
+            
+            # Asegurarnos de que la respuesta está en UTF-8
+            if response.text:
+                return response.text.encode('utf-8', errors='ignore').decode('utf-8')
+            return "{}"
+            
         except Exception as e:
             logger.error(f"Error al analizar imagen con Gemini: {str(e)}", exc_info=True)
             return "{}"
@@ -104,45 +120,70 @@ class EvidenciaValidator:
     def _procesar_respuesta(self, respuesta: str, datos_empleado: Dict) -> Dict:
         """Procesa la respuesta de Gemini y genera el resultado de validación."""
         try:
+            # Limpiar la respuesta de marcadores de código
+            respuesta_limpia = respuesta.strip()
+            if respuesta_limpia.startswith('```json'):
+                respuesta_limpia = respuesta_limpia[7:]
+            if respuesta_limpia.endswith('```'):
+                respuesta_limpia = respuesta_limpia[:-3]
+            respuesta_limpia = respuesta_limpia.strip()
+            
             # Intentar parsear la respuesta como JSON
-            datos = json.loads(respuesta)
-            logger.debug(f"Datos parseados: {json.dumps(datos, indent=2)}")
+            datos = json.loads(respuesta_limpia)
             
-            # Validar nombre
-            nombre_ok = 1 if datos.get('nombre_encontrado', False) else 0
-            logger.debug(f"Validación nombre: {nombre_ok}")
+            # Extraer datos
+            nombre_a_validar = datos_empleado['Nombre_Empleado']
+            nombre_encontrado = datos.get('nombre_encontrado', 'No se encontró nombre')
+            # Normalizar para comparar ignorando tildes y mayúsculas
+            def normaliza(s):
+                return unicodedata.normalize('NFKD', s).encode('ASCII', 'ignore').decode('ASCII').lower().strip()
+            nombre_ok = 1 if normaliza(nombre_a_validar) == normaliza(nombre_encontrado) else 0
             
-            # Validar periodo (asumimos que cualquier fecha en 2024 es válida)
-            fecha = datos.get('fecha_encontrada', '')
-            periodo_ok = 1 if '2024' in fecha else 0
-            logger.debug(f"Validación periodo: {periodo_ok} (fecha encontrada: {fecha})")
+            periodo_a_validar = '2024'
+            fecha_encontrada = datos.get('fecha_encontrada', '')
+            # Buscar la última fecha completa (ej: 14 de febrero de 2024)
+            fechas = re.findall(r'\d{1,2} de [a-zA-Z]+ de 2024', fecha_encontrada)
+            if fechas:
+                fecha_encontrada = fechas[-1]
+            else:
+                fecha_encontrada = ''
+            periodo_ok = 1 if '2024' in fecha_encontrada else 0
             
-            # Validar tareas
-            tareas = datos.get('tareas_identificadas', [])
-            tarea_ok = 1 if tareas else 0
-            logger.debug(f"Validación tareas: {tarea_ok} (tareas: {tareas})")
+            tarea_a_validar = datos_empleado['Nombre_Subproyecto']
+            tareas_encontradas = datos.get('tareas_identificadas', [])
+            tareas_encontradas_str = ', '.join(tareas_encontradas) if isinstance(tareas_encontradas, list) else tareas_encontradas
+            tarea_ok = 1 if tareas_encontradas else 0
             
-            # Generar descripción
-            descripcion = f"""
-            Contenido: {datos.get('contenido_relevante', 'No se pudo analizar')}
-            Tareas identificadas: {', '.join(tareas) if isinstance(tareas, list) else tareas}
-            Justificación: {datos.get('justificacion', 'No se pudo justificar')}
-            """
+            justificacion = datos.get('justificacion', 'No se pudo justificar')
+            link_imagen = datos_empleado.get('Ruta_Evidencia', '')
             
             return {
                 "Nombre_ok": nombre_ok,
                 "Periodo_ok": periodo_ok,
                 "Tarea_ok": tarea_ok,
-                "Descripcion_tarea": descripcion.strip()
+                "Nombre_a_validar": nombre_a_validar,
+                "Nombre_encontrado": nombre_encontrado,
+                "Periodo_a_validar": periodo_a_validar,
+                "Fecha_encontrada": fecha_encontrada,
+                "Tarea_a_validar": tarea_a_validar,
+                "Tareas_encontradas": tareas_encontradas_str,
+                "Justificacion": justificacion,
+                "Link_imagen": link_imagen
             }
-            
         except Exception as e:
             logger.error(f"Error al procesar respuesta: {str(e)}", exc_info=True)
             return {
                 "Nombre_ok": 0,
                 "Periodo_ok": 0,
                 "Tarea_ok": 0,
-                "Descripcion_tarea": f"Error al procesar respuesta: {str(e)}"
+                "Nombre_a_validar": datos_empleado.get('Nombre_Empleado', ''),
+                "Nombre_encontrado": 'Error',
+                "Periodo_a_validar": '2024',
+                "Fecha_encontrada": '',
+                "Tarea_a_validar": datos_empleado.get('Nombre_Subproyecto', ''),
+                "Tareas_encontradas": '',
+                "Justificacion": f"Error al procesar respuesta: {str(e)}",
+                "Link_imagen": datos_empleado.get('Ruta_Evidencia', '')
             }
 
 class ProcesadorEvidencias:
@@ -211,7 +252,22 @@ class ProcesadorEvidencias:
         - Nombres validados correctamente: {nombre_ok} ({nombre_ok/total*100:.1f}%)
         - Periodos validados correctamente: {periodo_ok} ({periodo_ok/total*100:.1f}%)
         - Tareas validadas correctamente: {tarea_ok} ({tarea_ok/total*100:.1f}%)
+        
+        Detalles de las evidencias procesadas:
         """
+        
+        for idx, row in df_resultados.iterrows():
+            resumen += f"""
+            Evidencia {idx + 1}:
+            - Nombre a validar: {row['Nombre_a_validar']}
+            - Nombre encontrado: {row['Nombre_encontrado']}
+            - Periodo a validar: {row['Periodo_a_validar']}
+            - Fecha encontrada: {row['Fecha_encontrada']}
+            - Tarea a validar: {row['Tarea_a_validar']}
+            - Tareas encontradas: {row['Tareas_encontradas']}
+            - Justificación: {row['Justificacion']}
+            """
+        
         logger.info(resumen)
 
 def main():
@@ -245,3 +301,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+# clear && uv run python src/check_evidencias.py --limite 5 --debug
