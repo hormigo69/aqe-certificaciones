@@ -1,54 +1,126 @@
-# Validador de Evidencias I+D
+# 🎓 AQE Certificaciones - Validador de Evidencias
 
-Este programa valida las evidencias de bonificaciones I+D utilizando la API de Gemini para analizar imágenes y verificar su contenido.
+## 📝 Descripción
+Sistema para validar y gestionar evidencias de certificaciones AQE. Permite visualizar, validar y gestionar evidencias de certificaciones de manera eficiente.
 
-## Requisitos
+## 🏗️ Estructura del Proyecto
+```
+.
+├── frontend/           # Aplicación React/Vite
+│   ├── src/           # Código fuente del frontend
+│   └── dist/          # Archivos compilados
+├── data/              # Datos y evidencias
+│   └── Evidencias 2024/  # Archivos de evidencias
+├── server.py          # Servidor Flask
+├── resultados_validacion.csv      # Resultados de validación
+└── resultados_finales_validados.csv  # Resultados finales
+```
 
-- Python 3.8 o superior
-- API key de Google Gemini
+## 🚀 Cómo Iniciar el Proyecto
 
-## Instalación
-
-1. Clonar el repositorio
-2. Instalar las dependencias:
+### 1. Backend (Flask)
 ```bash
+# Instalar dependencias (si no lo has hecho)
 pip install -r requirements.txt
-```
 
-3. Crear un archivo `.env` en la raíz del proyecto con tu API key:
+# Iniciar el servidor
+python3 server.py
 ```
-GEMINI_API_KEY=tu_api_key_aqui
-```
+El servidor se iniciará en `http://localhost:5001`
 
-## Uso
-
-1. Asegúrate de que el archivo CSV de evidencias (`evidencias_2024.csv`) esté en la raíz del proyecto
-2. Ejecuta el programa:
+### 2. Frontend (React/Vite)
 ```bash
-python src/check_evidencias.py
+# Entrar al directorio frontend
+cd frontend
+
+# Instalar dependencias (si no lo has hecho)
+npm install
+
+# Iniciar el servidor de desarrollo
+npm run dev
+```
+La aplicación se iniciará en `http://localhost:5173`
+
+## 🔧 Endpoints Disponibles
+
+### Backend (http://localhost:5001)
+- `GET /resultados_validacion.csv` - Obtener CSV de resultados
+- `POST /save-results` - Guardar cambios en resultados
+- `GET /evidencias/<filename>` - Acceder a archivos de evidencias
+
+## 🛠️ Tecnologías Utilizadas
+
+### Backend
+- Python 3.13
+- Flask
+- Flask-CORS
+
+### Frontend
+- React
+- Vite
+- TailwindCSS
+- HeadlessUI
+- React Icons
+- PapaParse (para CSV)
+
+## 📋 Funcionalidades Principales
+1. Visualización de evidencias
+2. Validación de certificaciones
+3. Gestión de resultados
+4. Exportación de datos en CSV
+
+## 🔍 Cómo Usar
+
+1. **Acceder a la aplicación**:
+   - Abre `http://localhost:5173` en tu navegador
+
+2. **Validar Evidencias**:
+   - Navega por la lista de certificaciones
+   - Revisa las evidencias asociadas
+   - Marca como válidas/inválidas según corresponda
+
+3. **Guardar Cambios**:
+   - Los cambios se guardan automáticamente
+   - También puedes exportar los resultados
+
+## 🛑 Detener los Servidores
+
+### Backend
+```bash
+# En la terminal donde corre server.py
+Ctrl + C
 ```
 
-3. El programa generará un archivo `resultados_validacion.csv` con los resultados de la validación
+### Frontend
+```bash
+# En la terminal donde corre npm run dev
+Ctrl + C
+```
 
-## Estructura del CSV de entrada
+## 🔄 Reiniciar Todo
 
-El CSV de entrada debe contener las siguientes columnas:
-- Empleado
-- Proyecto
-- Subproyecto
-- ID_Empleado
-- Nombre_Empleado
-- ID_Subproyecto
-- Nombre_Subproyecto
-- ID_Proyecto
-- Nombre_Proyecto
-- Evidencia
-- Ruta_Evidencia
+Si necesitas reiniciar todo el sistema:
 
-## Estructura del CSV de salida
+1. **Detener procesos existentes**:
+```bash
+# Matar procesos en puerto 5001
+lsof -ti:5001 | xargs kill -9
 
-El CSV de salida contendrá las siguientes columnas:
-- Nombre_ok: 1 si el nombre del empleado está en la evidencia, 0 si no
-- Periodo_ok: 1 si la fecha está dentro del periodo de bonificación, 0 si no
-- Tarea_ok: 1 si el contenido justifica las tareas realizadas, 0 si no
-- Descripcion_tarea: Descripción detallada del contenido de la evidencia
+# Matar procesos de server.py
+pkill -f "python.*server.py"
+```
+
+2. **Reiniciar servidores**:
+```bash
+# Terminal 1 - Backend
+python3 server.py
+
+# Terminal 2 - Frontend
+cd frontend
+npm run dev
+```
+
+## 📝 Notas
+- El servidor backend debe estar corriendo para que el frontend funcione correctamente
+- Los cambios se guardan automáticamente en el backend
+- Las evidencias se sirven desde la carpeta `data/Evidencias 2024`
